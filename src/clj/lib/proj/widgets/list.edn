@@ -1,0 +1,2 @@
+;; proj/widgets/list.edn
+{:miraj.polymer/styles [[miraj.polymer.paper.styles typography]]}

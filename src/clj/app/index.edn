@@ -1,0 +1,14 @@
+{:miraj.polymer/styles [[miraj.polymer.iron.icons av image iron maps]
+                        [miraj.polymer.iron.styles flex-mixins]
+                        [miraj.polymer.paper.styles color typography]]
+
+ :css                   [[styles.shared-styles :custom [shared-styles pprint-code]]
+                         ["/styles/main.css" "/bower_components/highlight/src/styles/default.css"]]
+
+ :imports               [styles.app_theme
+                         ;; styles.pprint_code
+                         index.routing]}
+
+;; <link rel="import" href="../styles/app-theme.html">
+;; <link rel="import" href="../styles/shared-styles.html">
+
