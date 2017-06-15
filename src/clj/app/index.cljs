@@ -1,7 +1,7 @@
 (ns index)
   ;; (:require [index.core]))
 
-(enable-console-print!)
+;; (enable-console-print!)
 
-(println "LOADING index.cljs")
+;; (println "LOADING index.cljs")
 

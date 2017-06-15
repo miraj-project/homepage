@@ -1,11 +1,11 @@
 (ns proj.widgets.list)
 
-(enable-console-print!)
+;; (enable-console-print!)
 
-(println "LOADING proj.widgets.list")
+;; (println "LOADING proj.widgets.list")
 
 (defn ready [this]
-  (println "List READY")
+  ;; (println "List READY")
   (aset this "items"
         #js ["Responsive Web App boilerplate",
              "Iron Elements and Paper Elements",

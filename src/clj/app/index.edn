@@ -2,8 +2,8 @@
                         [miraj.polymer.iron.styles flex-mixins]
                         [miraj.polymer.paper.styles color typography]]
 
- :css                   [[styles.shared-styles :custom [shared-styles pprint-code]]
-                         ["/styles/main.css" "/bower_components/highlight/src/styles/default.css"]]
+ :css                   [[styles.shared-styles :custom [shared-styles]]
+                         ["/styles/main.css"]]
 
  :imports               [styles.app_theme
                          ;; styles.pprint_code

@@ -61,7 +61,8 @@
  ;;       :description "Example code, boot, miraj, GAE"
  ;;       :license     {"EPL" "http://www.eclipse.org/legal/epl-v10.html"}}
  cljs {:compiler-options {:language-in  :ecmascript5-strict
-                          :language-out :ecmascript5-strict}})
+                          :language-out :ecmascript5-strict}
+       :optimizations :none})
 
 (deftask monitor
   "build frontend"
@@ -76,11 +77,11 @@
   (comp
    ;; we need to generate the component library before the page ns,
    ;; since the latter depends on the former
-   (miraj/compile :components #{'proj.widgets}
+   (miraj/compile :components #{'proj.widgets 'lib.msgs}
                   :keep true
-                  :pprint false)
-                  ;; :debug true)
-   (miraj/link :libraries #{'proj/gadgets}
+                  ;; :pprint false)
+                  :debug false)
+   (miraj/link :libraries #{'proj/gadgets 'lib/msg}
                ;; :verbose true
                :keep true
                :pprint false
@@ -107,12 +108,12 @@
   (comp
    ;; we need the widgets lib in order to build/link the page
    (miraj/compile :components #{'proj.widgets}
-                  :keep true
+                  :keep false
                   ;; :pprint true
-                  :debug true)
+                  :debug false)
    (miraj/link    :libraries #{'proj/gadgets}
                   :assets :polymer
-                  :debug true)))
+                  :debug false)))
 (target :dir #{"target/default"} :no-clean true)))
 
 

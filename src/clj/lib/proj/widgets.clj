@@ -25,8 +25,6 @@
    ;; (h/pre :.prettyprint.lang-html {:hidden (p/bind!! :!language-html)} (p/slot {:select "code"}))
                ))
 
-;))
-
   {:polymer/properties {:clj {:value false :type Boolean}
                         :html {:value false :type Boolean}}})
 
@@ -60,8 +58,9 @@
 
   {:polymer/properties {:items ^Vector{:notify :true}}}
 
-  miraj.polymer.protocols/Lifecycle
-  (ready [] (this-as this (list/ready this))))
+  ;; miraj.polymer.protocols/Lifecycle
+  ;; (ready [] (this-as this (list/ready this)))
+  )
 
 (miraj/defcomponent device-card :html proj-device-card
   "proj devices component"
@@ -86,7 +85,8 @@
    }
 
   miraj.polymer.protocols/Lifecycle
-  (ready [] (this-as this (device-card/ready this))))
+  ;; (ready [] (this-as this (device-card/ready this)))
+  )
 
 (miraj/defcomponent devices :html proj-devices
   "proj devices component"
@@ -122,7 +122,8 @@
    ;; :ajax-handler (fn [r] (this-as this (devices/ajax this r)))
    }
 
-  miraj.polymer.protocols/Lifecycle
-  (ready [] (this-as this (devices/ready this))))
+  ;; miraj.polymer.protocols/Lifecycle
+  ;; (ready [] (this-as this (devices/ready this)))
+  )
 
 ;; (println "loaded proj.widgets")

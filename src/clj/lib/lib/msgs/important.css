@@ -1,0 +1,5 @@
+/* important.css */
+
+:host ::content .wrapper {border: thin solid blue;max-width:400px;margin:0 auto;padding:4px;}
+
+:host ::content .important {color:red;padding-right:10px;}

@@ -1,11 +1,11 @@
 (ns proj.widgets.devices)
 
-(enable-console-print!)
+;; (enable-console-print!)
 
-(println "LOADING proj.widgets.devices")
+;; ;; (println "LOADING proj.widgets.devices")
 
-(defn ready [this]
-  (println "devices READY"))
+;; (defn ready [this]
+;;   (println "devices READY"))
 
 #_(defn ajax [this]
   (println "devices AJAX")

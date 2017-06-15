@@ -1,8 +1,8 @@
 (ns proj.widgets.device-card)
 
-(enable-console-print!)
+;; (enable-console-print!)
 
-(println "LOADING proj.widgets.device-card")
+;; (println "LOADING proj.widgets.device-card")
 
-(defn ready [this]
-  (println "device-card READY"))
+;; (defn ready [this]
+;;   (println "device-card READY"))
