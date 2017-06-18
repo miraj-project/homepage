@@ -5,7 +5,8 @@
             [miraj.html :as h]
             [miraj.html.x.apple :as apple]
             [miraj.html.x.ms :as ms]
-            [miraj.polymer :as p]))
+            [miraj.polymer :as p]
+            [pages.custom-components]))
 
 (println "loading index")
 
@@ -28,7 +29,7 @@
 (def figure-dash \u2012)
 (def en-dash "\u2013")
 (def em-dash "\u2014")
- 
+
 (miraj/defpage
   "Miraj Project Homepage"
   (:require [miraj.polymer.iron :as iron :refer [pages selector]]
@@ -158,6 +159,12 @@
 
                 (h/p "Miraj is largely motivated by the following observations:")
                 (h/ul
+                 (h/li "The three languages of the web (HTML,
+                Javascript, CSS) together serve as a kind of web
+                \"assembly\" language.  Nobody wants to program in
+                assembly, let alone three different assembly
+                languages.")
+
                  (h/li "HTML element tags are (co-)functions.  Like
                  functions, they are applied to arguments (attributes
                  and child elements), and they always do the same
@@ -181,10 +188,7 @@
                        (proj/snippet :?clj.inline (h/code :.clj "ns"))
                        " macro: they tell the runtime to find, fetch, and load the referenced resources."))
 
-                 (h/li "The three languages of the web (HTML,
-                Javascript, CSS) together serve as a kind of web
-                \"assembly\" language.  Nobody programs in assembly,
-                let alone three different assembly languages.")  )
+                 )
 
                 (h/p "Miraj eliminates mixed-language programming,
                 allowing the programmer to define pages and
@@ -277,8 +281,15 @@ index> howdy
                  {:href "https://github.com/boot-clj/boot"} "boot") "
                  task library for Miraj programming.")
 
-                )))
+                ))
 
+              (paper/material {:elevation "1"}
+                (h/p "NOTE: this website was build using Miraj.  The source code is available at:"
+                     (h/a {:href "https://github.com/miraj-project/homepage"}
+                          "miraj-project/homepage")
+                     "."))
+
+              )
 
             (h/section {:data-route "html5" :tabindex "-1"}
               (h/h1 :.page-title "HTML5")
@@ -592,6 +603,26 @@ index> howdy
                    ))
 
                 (paper/material {:elevation "1"}
+                  (h/h4 "Polymer Assets")
+                  (h/p "The assets that implement Polymer components are package in "
+                       (h/code "miraj.polymer.assets")
+                       "; this library contains everything you would
+                       get if you installed using bower, packaged as a
+                       jarfile so the assets become available. via the
+                       classpath.  Each of the "
+                       (h/code "miraj.polymer.*") " libraries
+                       has a dependency on this library, so the user
+                       never needs to import it directly.")
+
+                  (h/p "To serve your component-based application
+statically, or using a non-Java server, you must copy the assets your
+app needs to a folder on the server's search path.
+The " (h/code "boot-miraj/assetize") " task will copy the contents of
+the miraj.polymer.assets jar to the filesystem.  Alternatively, you
+can use bower to install the components you need, but the path to them
+must be miraj/polymer/assets."))
+
+                (paper/material {:elevation "1"}
                   (h/h4 "Using Polymer Components")
 
                   (h/p "To use a Polymer component in a webpage,
@@ -627,7 +658,7 @@ incomplete, but the library source code is easily understandable.)")
                        " for the complete list."))
 
                 (paper/material {:elevation "1"}
-                  (h/h5 "Polymer Bindings")
+                  (h/h4 "Polymer Bindings")
                   (h/p "Polymer implements a "
                        (h/a {:href "https://www.polymer-project.org/1.0/docs/devguide/data-binding"}
                             "data binding") " mechanism that
@@ -643,19 +674,20 @@ incomplete, but the library source code is easily understandable.)")
                          (proj/snippet :?html.inline
                            (h/code :.html (str "<my-element my-property=\"[\uFEFF[hostProperty]]\">"))))
 
-                        (h/li "One-way " (h/i "attribute") " bindings suffix $ to the = sign: "
+                        (h/li "One-way " (h/i "attribute") " bindings suffix $ to the attribute name: "
                          (proj/snippet :?html.inline
-                           (h/code :.html (str "<my-element my-property=$\"[\uFEFF[hostProperty]]\">"))))
+                           (h/code :.html (str "<my-element my-attribute$=\"[\uFEFF[hostProperty]]\">"))))
 
                         (h/li "Two-way property bindings use double squiggle braces: "
                          (proj/snippet :?html.inline
                            (h/code :.html (str "<my-element my-property=\"{\uFEFF{hostProperty}}\">"))))
 
-                        (h/li "Two-way " (h/i "attribute") " bindings suffix $ to the = sign: "
+                        (h/li "Two-way " (h/i "attribute") " bindings suffix $ to the attribute name: "
                          (proj/snippet :?html.inline
-                           (h/code :.html (str "<my-element my-property=$\"{\uFEFF{hostProperty}}\">")))))
+                           (h/code :.html (str "<my-element my-attribute$=\"{\uFEFF{hostProperty}}\">")))))
 
                   (h/p "Miraj provides functions for Polymer bindings:")
+ 
                   (h/ul
                    (h/li (proj/snippet :?clj?html.inline
                     (h/code :.clj (str "(h/span {:foo (miraj.polymer/bind! :bar)}"))
@@ -663,14 +695,14 @@ incomplete, but the library source code is easily understandable.)")
 
                    (h/li (proj/snippet :?clj?html.inline
                     (h/code :.clj (str "(h/span {:foo (miraj.polymer/bind-attr! :bar)}"))
-                           (h/code :.html (str "<span foo=$\"[\uFEFF[bar]]\"></span>"))))
+                           (h/code :.html (str "<span foo$=\"[\uFEFF[bar]]\"></span>"))))
 
                    (h/li (proj/snippet :?clj?html.inline
                     (h/code :.clj (str "(h/span {:foo (miraj.polymer/bind!! :bar)}"))
                            (h/code :.html (str "<span foo=\"{\uFEFF{bar}}\"></span>"))))
                    (h/li (proj/snippet :?clj?html.inline
                     (h/code :.clj (str "(h/span {:foo (miraj.polymer/bind-attr!! :bar)}"))
-                           (h/code :.html (str "<span foo=$\"{\uFEFF{bar}}\"></span>")))))
+                           (h/code :.html (str "<span foo$=\"{\uFEFF{bar}}\"></span>")))))
 
                   (h/p "Bindings also work in text nodes, and may be concatentated to text:")
                   (h/ul
@@ -698,18 +730,25 @@ incomplete, but the library source code is easily understandable.)")
                 (msg/warning "Support for " (h/a {:href "https://www.polymer-project.org/1.0/docs/devguide/data-binding#annotated-computed"} "computed bindings") " is not fully implemented.")
                 ))
 
-            (h/section {:data-route "components" :tabindex "-1"}
-              (h/h1 :.page-title "Custom Components")
-                (paper/material {:elevation "1"}
-                  (h/p "See the "
-                       (h/a {:href "https://github.com/miraj-project/demos/tree/master/hello-world/acme-widgets"} "acme-widgets")
-                       " demo for detailed examples.")))
-
+            pages.custom-components/page
+  
             (h/section {:data-route "libraries" :tabindex "-1"}
               (h/h1 :.page-title "Component Libraries")
                 (paper/material {:elevation "1"}
                   (h/p "See the "
-                       (h/a {:href "https://github.com/miraj-project/demos/tree/master/hello-world/acme-widgets"} "acme-widgets") " demo for a detailed example.")))
+                       (h/a
+                       {:href "https://github.com/miraj-project/demos/tree/master/hello-world/acme-widgets"} "acme-widgets") "
+                       demo for a detailed example of defining,
+                       compiling, and linking a custom component
+                       library.")
+
+                  (h/p "You can also wrap 3rd party components into a
+                  library, just as Miraj does for Polymer Project
+                  components.  The easiest way to proceed is to copy
+                  one of the Miraj Polymer libraries and edit.
+                  Components are described in edn/webcomponents.edn.
+                  Run "
+                       (proj/snippet :?clj.inline (h/code :.clj "(boot-miraj/compile :libraries true)")) " to generate the library.")))
 
             ;; (h/section {:data-route "user-info" :tabindex "-1"}
             ;;     (h/h1 :.page-title {:tabindex "-1"} "User: " (p/bind!! :params.name))
@@ -744,7 +783,41 @@ incomplete, but the library source code is easily understandable.)")
             (h/section {:data-route "boot-miraj" :tabindex "-1"}
               (h/h1 :.page-title "boot-miraj")
                 (paper/material {:elevation "1"}
-                  (h/p "foo")))
+                  (h/p (h/a {:href "https://github.com/miraj-project/boot-miraj"}
+                            "boot-miraj")
+                       " is a boot task collection for Miraj
+                       development.  In general you only need two
+                       tasks, compile and link.  See the "
+                       (h/a {:href "https://github.com/miraj-project/demos/tree/master/hello-world"}
+                            "hello-world")
+                       " demos for many examples.")
+
+                  (h/p "To compile and link a library of components:")
+                  (proj/snippet :?clj.inline (h/code :.clj "
+(deftask lib []
+  (comp
+   (miraj/compile :components #{}   ;; compile all namespaces
+                  ;; :components #{'foo.bar} ;; just this one ns
+                  ;; :components #{'foo.bar/baz} ;; just this one component
+                  :keep true        ;; keep (or discard) intermediate files
+                  :debug true)      ;; log msgs, pretty printed output,
+   (miraj/link :libraries #{'acme/widgets} ;; a deflibrary var
+               :debug true)))
+"))
+
+                  (h/p "To compile and link a page:")
+                  (proj/snippet :?clj.inline (h/code :.clj "
+(deftask app
+  (comp
+   (miraj/compile :pages #{'index}
+                  :polyfill :lite   ;; inject a Polymer polyfill
+                  :debug true)
+   (miraj/link :pages #{'index}
+               :debug true
+               )))
+"))
+
+))
 
             (h/section {:data-route "workflow" :tabindex "-1"}
               (paper/material {:elevation "1"}

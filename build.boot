@@ -62,7 +62,10 @@
  ;;       :license     {"EPL" "http://www.eclipse.org/legal/epl-v10.html"}}
  cljs {:compiler-options {:language-in  :ecmascript5-strict
                           :language-out :ecmascript5-strict}
-       :optimizations :none})
+       :optimizations :advanced})
+
+(def dbg false)
+(def keep false)
 
 (deftask monitor
   "build frontend"
@@ -78,14 +81,13 @@
    ;; we need to generate the component library before the page ns,
    ;; since the latter depends on the former
    (miraj/compile :components #{'proj.widgets 'lib.msgs}
-                  :keep true
+                  :keep keep
                   ;; :pprint false)
-                  :debug false)
+                  :debug dbg)
    (miraj/link :libraries #{'proj/gadgets 'lib/msg}
                ;; :verbose true
-               :keep true
-               :pprint false
-               ;; :debug true
+               :keep keep
+               :debug dbg
                )))
 
 (deftask app
@@ -94,10 +96,10 @@
    (miraj/compile :pages #{'index}
                   ;;:pprint false
                   :polyfill :lite
-                  :debug true)
+                  :debug dbg)
    (miraj/link :pages #{'index}
                ;;:pprint false
-               :debug true
+               :debug dbg
                )))
 
 (deftask assetize
