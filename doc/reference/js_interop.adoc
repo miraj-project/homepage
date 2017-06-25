@@ -154,7 +154,7 @@ Typename/staticField ==> (. Typename staticField)
 
 
 [[nested]]
-== Compound (nested) Structures
+=== Compound (nested) Structures
 
 TODO: brief note on preferring #js and/or js-obj
 
