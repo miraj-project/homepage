@@ -61,6 +61,9 @@ interop; it creates arrays and objects.
 
 IMPORTANT:  The `#js` reader is _non-recursive_; it will not transform nested structures.
 
+TODO: a note about print syntax, e.g. cljs.user> #js {:a 1 :b 2} =>  #js {:a 1, :b 2}
+
+
 [source,clojurescript]
 ----
 #js {"a" 9}
@@ -98,10 +101,10 @@ There are two basic ways to create a javascript object:
 
 [source,clojurescript]
 ----
-#js {"a" 9}
--> #js {:a 9}
-#js [1 2]
--> #js [1 2]
+#js {:a 1 :b 2}
+-> #js {:a 1, :b 2}
+(js-obj :a 1 :b 2)
+-> #js {::a 1, ::b 2}
 ----
 
 ==== Object Property access
@@ -149,6 +152,30 @@ The preferred idiomatic forms for accessing field or method members are given ab
 Typename/staticField ==> (. Typename staticField)
 ----
 
+
+[[nested]]
+== Compound (nested) Structures
+
+TODO: brief note on preferring #js and/or js-obj
+
+The `clj->js` function recursively transforms Clojurescript values to Javascript:
+
+WARNING:  `clj->js` is relatively inefficient; prefer other methods.
+
+.clj->js conversions
+[cols=4]
+|===
+2+| clojurescript 2+| javascript
+
+| set | #{} | Array | []
+| vector | [] | Array | []
+| list | () | Array | []
+| keyword | :foo | String | "foo"
+| Symbol | bar | String | "bar"
+| Map | {} | Object | {}
+|===
+
+TODO: examples
 
 == The Dot special form
 
